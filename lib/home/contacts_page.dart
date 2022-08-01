@@ -39,13 +39,18 @@ class _ContactItem extends StatelessWidget {
     Widget button = Container(
       //margin: const EdgeInsets.symmetric(horizontal: 16.0),
       padding: const EdgeInsets.symmetric(
-          vertical: marginVertical, horizontal: 16.0),
+        vertical: marginVertical,
+        horizontal: 16.0,
+      ),
       decoration: const BoxDecoration(
-          color: Colors.white,
-          border: Border(
-            bottom: BorderSide(
-                width: Constants.dividerWidth, color: AppColors.dividerColor),
-          )),
+        color: Colors.white,
+        border: Border(
+          bottom: BorderSide(
+            width: Constants.dividerWidth,
+            color: AppColors.dividerColor,
+          ),
+        ),
+      ),
       child: Row(
         children: <Widget>[
           Avatar(
@@ -264,9 +269,10 @@ class _ContactsPageState extends State<ContactsPage> {
             isGroupTitle = false;
           }
           return _ContactItem(
-              avatar: contact.avatar,
-              title: contact.title,
-              groupTitle: isGroupTitle ? contact.sortIndex : '');
+            avatar: contact.avatar,
+            title: contact.title,
+            groupTitle: isGroupTitle ? contact.sortIndex : '',
+          );
         },
         itemCount: _contacts.length + _functionButtons.length,
       ),
@@ -292,7 +298,8 @@ class _ContactsPageState extends State<ContactsPage> {
           decoration: const BoxDecoration(
             color: AppColors.indexLetterBoxBgColor,
             borderRadius: BorderRadius.all(
-                Radius.circular(Constants.indexLetterBoxRadius)),
+              Radius.circular(Constants.indexLetterBoxRadius),
+            ),
           ),
           child: Center(
             child: Text(

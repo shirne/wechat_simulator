@@ -15,7 +15,7 @@ class _DiscoverPageState extends State<DiscoverPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: AppColors.backgroundColor,
+      color: Theme.of(context).backgroundColor,
       child: SingleChildScrollView(
         child: Column(
           children: <Widget>[

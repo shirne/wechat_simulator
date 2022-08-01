@@ -18,54 +18,56 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: AppColors.backgroundColor,
-      child: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            _ProfileHeaderView(context.watch<User>()),
-            ListGroup(
-              children: [
-                ListCell(
-                  icon: 'ic_wallet',
-                  title: '钱包',
-                  onTap: () {},
-                ),
-              ],
-            ),
-            ListGroup(
-              children: [
-                ListCell(
-                  icon: 'ic_collections',
-                  title: '收藏',
-                  onTap: () {},
-                ),
-                ListCell(
-                  icon: 'ic_album',
-                  title: '相册',
-                  onTap: () {},
-                ),
-                ListCell(
-                  icon: 'ic_cards_wallet',
-                  title: '卡包',
-                  onTap: () {},
-                ),
-                ListCell(
-                  icon: 'ic_emotions',
-                  title: '表情',
-                  onTap: () {},
-                ),
-              ],
-            ),
-            ListGroup(
-              children: [
-                ListCell(
-                  icon: 'ic_settings',
-                  title: '设置',
-                  onTap: () {},
-                ),
-              ],
-            ),
-          ],
+      color: Theme.of(context).backgroundColor,
+      child: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              _ProfileHeaderView(context.watch<User>()),
+              ListGroup(
+                children: [
+                  ListCell(
+                    icon: 'ic_wallet',
+                    title: '钱包',
+                    onTap: () {},
+                  ),
+                ],
+              ),
+              ListGroup(
+                children: [
+                  ListCell(
+                    icon: 'ic_collections',
+                    title: '收藏',
+                    onTap: () {},
+                  ),
+                  ListCell(
+                    icon: 'ic_album',
+                    title: '相册',
+                    onTap: () {},
+                  ),
+                  ListCell(
+                    icon: 'ic_cards_wallet',
+                    title: '卡包',
+                    onTap: () {},
+                  ),
+                  ListCell(
+                    icon: 'ic_emotions',
+                    title: '表情',
+                    onTap: () {},
+                  ),
+                ],
+              ),
+              ListGroup(
+                children: [
+                  ListCell(
+                    icon: 'ic_settings',
+                    title: '设置',
+                    onTap: () {},
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -81,6 +83,7 @@ class _ProfileHeaderView extends StatelessWidget {
   const _ProfileHeaderView(this.user, {Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Container(
       color: Colors.white,
       padding: const EdgeInsets.symmetric(
@@ -97,19 +100,14 @@ class _ProfileHeaderView extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(user.nickname,
-                    style: const TextStyle(
-                      color: AppColors.titleColor,
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.w500,
-                    )),
+                Text(
+                  user.nickname,
+                  style: theme.textTheme.titleLarge,
+                ),
                 const SizedBox(height: 10.0),
                 Text(
                   '微信号: ${user.account}',
-                  style: const TextStyle(
-                    color: AppColors.descTextColor,
-                    fontSize: 13.0,
-                  ),
+                  style: theme.textTheme.bodySmall?.copyWith(fontSize: 13),
                 )
               ],
             ),

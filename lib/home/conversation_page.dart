@@ -25,10 +25,14 @@ class _ConversationItem extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius:
               BorderRadius.circular(Constants.unReadMsgNotifyDotSize / 2.0),
-          color: AppColors.notifyDotBgColor,
+          color: Theme.of(context).colorScheme.tertiary,
         ),
-        child: Text(conversation.unreadMsgCount.toString(),
-            style: AppStyles.unreadMsgCountDotStyle),
+        child: Text(
+          conversation.unreadMsgCount.toString(),
+          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                color: Theme.of(context).colorScheme.onTertiary,
+              ),
+        ),
       );
 
       avatarContainer = Stack(
@@ -92,17 +96,24 @@ class _ConversationItem extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text(conversation.entity.title,
-                          style: AppStyles.titleStyle),
-                      Text(conversation.lastMessage ?? '',
-                          style: AppStyles.descStyle)
+                      Text(
+                        conversation.entity.title,
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                      Text(
+                        conversation.lastMessage ?? '',
+                        style: Theme.of(context).textTheme.bodySmall,
+                      )
                     ],
                   ),
                 ),
                 Container(width: 10.0),
                 Column(
                   children: [
-                    Text(conversation.updateAt, style: AppStyles.descStyle),
+                    Text(
+                      conversation.updateAt,
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
                     muteContainer
                   ],
                 )
