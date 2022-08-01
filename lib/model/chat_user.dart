@@ -9,7 +9,7 @@ class ChatUser extends ChatBase {
     required this.account,
     this.gender = '0',
     avatar = 'assets/images/default_nor_avatar.png',
-    nameIndex = '',
+    String? nameIndex,
   }) : super(avatar: avatar, title: nickname, nameIndex: nameIndex);
 
   ChatUser.fromJson(Map<String, dynamic> json)

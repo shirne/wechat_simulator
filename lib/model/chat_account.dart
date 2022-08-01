@@ -7,7 +7,7 @@ class ChatAccount extends ChatBase {
     required String title,
     String avatar = '',
     required this.account,
-    String nameIndex = '',
+    String? nameIndex,
   }) : super(title: title, avatar: avatar, nameIndex: nameIndex);
 
   @override

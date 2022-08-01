@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:event_bus/event_bus.dart';
@@ -6,21 +7,41 @@ import 'package:event_bus/event_bus.dart';
 import 'constants.dart';
 import 'service/logger.dart';
 
-class ConnectStateEvent {
+abstract class Event {
+  Map<String, dynamic> toJson();
+
+  @override
+  String toString() => jsonEncode(toJson());
+}
+
+class ConnectStateEvent extends Event {
   int status;
   ConnectStateEvent(this.status);
+
+  @override
+  Map<String, dynamic> toJson() => {'status': status};
 }
 
-class LoginStateEvent {
+class LoginStateEvent extends Event {
   int status;
   LoginStateEvent(this.status);
+
+  @override
+  Map<String, dynamic> toJson() => {'status': status};
 }
 
-class MessageEvent {
+class MessageEvent extends Event {
   int type;
   String from;
   String message;
   MessageEvent({this.type = 1, this.from = '', required this.message});
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'type': type,
+        'from': from,
+        'message': message,
+      };
 }
 
 class ChatClient extends EventBus {
@@ -37,14 +58,19 @@ class ChatClient extends EventBus {
       socket = await WebSocket.connect(server);
       status = WebSocket.open;
       fire(ConnectStateEvent(status));
-      socket!.listen((event) {
-        LogUtil.i(event);
-        fire(MessageEvent(message: event.toString()));
-      }, onError: () {
-        LogUtil.i('error');
-      }, onDone: () {
-        LogUtil.i('done');
-      }, cancelOnError: false);
+      socket!.listen(
+        (data) {
+          LogUtil.i(data);
+          fire(MessageEvent(message: data.toString()));
+        },
+        onError: () {
+          LogUtil.i('socket error');
+        },
+        onDone: () {
+          LogUtil.i('socket done');
+        },
+        cancelOnError: false,
+      );
     } on SocketException catch (e) {
       LogUtil.i(e);
       Timer(const Duration(seconds: 3), () {
